@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо реализовать четыре функции, каждая функция должна принимать по два
+числа и выполнять одну из операций (каждая функция выполняет одну из них):
+1. Сложение
+2. Разность
+3. Умножение
+4. Деление
+
+Необходимо сделать так, чтобы функция вернула число, например выражение
+`console.log(sum(2, 6));` должно вывести число 8 в консоль (sum - функция
+сложения в данном примере, ваши названия функций могут отличаться).
+
+Округлять значения, которые возвращают функции не нужно, однако, обратите
+внимание на разность, функция должна вычесть из большего числа меньшее, либо
+вернуть 0, если числа равны.
+
+Функциям всегда передаются корректные числа, проверки на NaN, Infinity делать
+не нужно.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+  <script>
+    "use strict";
+
+    /**
+     * Складывает два числа
+     * @param {number} - Первое число
+     * @param {number} - Второе число
+     * @return {number} - результат сложения чисел
+     */
+    function sumNumbers(a, b) {
+      return a + b;
+    }
+
+    /**
+     * Вычитает одно число из другого
+     * @param {number} - Первое число
+     * @param {number} - Второе число
+     * @return {number} - разность чисел
+     */
+    function substractionNumbers(a, b) {
+      if (a > b) {
+        return (a - b);
+      } else {
+        return (b - a);
+      }
+    }
+
+    /**
+     * Перемножает числа
+     * @param {number} - Первое число
+     * @param {number} - Второе число
+     * @return {number} - результат умножения чисел
+     */
+    function multiplyNumbers(a, b) {
+      return a * b;
+    }
+
+    /**
+     * Делит числа
+     * @param {number} - Первое число
+     * @param {number} - Второе число
+     * @return {number} - результат деления чисел
+     */
+    function divisionNumbers(a, b) {
+      return a / b;
+    }
+
+    console.log(sumNumbers(10, 5));
+    console.log(substractionNumbers(5, 15));
+    console.log(multiplyNumbers(10, 5));
+    console.log(divisionNumbers(10, 5));
+
+  </script>
+</body>
+
+</html>
