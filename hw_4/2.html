@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+  <script>
+    "use strict";
+
+    function PostES5(authorName, text) {
+      this.authorName = authorName;
+      this.text = text;
+      //установим дату публикации поста
+      this.postDate = new Date();
+    }
+
+    PostES5.prototype.edit = function (newText) {
+      this.text = newText;
+      //обновим дату поста (вроде бы дублирование кода, но не понятно как 
+      // сделать по другому)
+      this.postDate = new Date();
+    };
+
+    function AttachedPostES5(authorName, text, highlighted = false) {
+      PostES5.call(this, authorName, text);
+      this.highlighted = highlighted;
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+    AttachedPostES5.constructor = AttachedPostES5;
+
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = true;
+    };
+
+    const newPost = new PostES5('Дима', 'Какой то текст');
+    console.log(`Автор поста: ${newPost.authorName}`);
+    console.log(`Текст поста: ${newPost.text}`);
+    console.log(`Дата поста: ${newPost.postDate}`);
+    newPost.edit('текст редактированного поста');
+    console.log(`Новый текст: ${newPost.text}`);
+
+    console.log('-----------------------')
+
+    const highlightedPost = new AttachedPostES5('Витя', 'Text');
+    console.log(`Автор поста: ${highlightedPost.authorName}`);
+    console.log(`Текст поста: ${highlightedPost.text}`);
+    console.log(`Дата поста: ${highlightedPost.postDate}`);
+    highlightedPost.edit('Super post Text');
+    console.log(`Новый текст: ${highlightedPost.text}`);
+    console.log(`Флаг highlighted = ${highlightedPost.highlighted}`);
+    highlightedPost.makeTextHighlighted();
+    console.log(`После применения метода makeTextHighlighted флаг \
+highlighted = ${highlightedPost.highlighted}`);
+
+    console.log('---------ES6--------------')
+
+    class PostES6 {
+      constructor(authorName, text) {
+        this.authorName = authorName;
+        this.text = text;
+        //установим дату публикации поста
+        this.postDate = new Date();
+      }
+
+      edit(newText) {
+        this.text = newText;
+        //обновим дату поста (вроде бы дублирование кода, но не понятно как 
+        // сделать по другому)
+        this.postDate = new Date();
+      };
+    }
+
+    class AttachedPostES6 extends PostES6 {
+      constructor(authorName, text, highlighted = false) {
+        super(authorName, text);
+        this.highlighted = highlighted;
+      }
+
+      makeTextHighlighted() {
+        this.highlighted = true;
+      }
+    }
+
+    const newPostES6 = new PostES6('Саша', 'Какой то текст');
+    console.log(`Автор поста: ${newPostES6.authorName}`);
+    console.log(`Текст поста: ${newPostES6.text}`);
+    console.log(`Дата поста: ${newPostES6.postDate}`);
+    newPostES6.edit('текст редактированного поста');
+    console.log(`Новый текст: ${newPostES6.text}`);
+
+    console.log('-----------------------')
+
+    const highlightedPostES6 = new AttachedPostES6('Женя', 'Text');
+    console.log(`Автор поста: ${highlightedPostES6.authorName}`);
+    console.log(`Текст поста: ${highlightedPostES6.text}`);
+    console.log(`Дата поста: ${highlightedPostES6.postDate}`);
+    highlightedPostES6.edit('Text Text Text');
+    console.log(`Новый текст: ${highlightedPostES6.text}`);
+    console.log(`Флаг highlighted = ${highlightedPostES6.highlighted}`);
+    highlightedPostES6.makeTextHighlighted();
+    console.log(`После применения метода makeTextHighlighted флаг \
+highlighted = ${highlightedPostES6.highlighted}`);
+
+  </script>
+</body>
+
+</html>
