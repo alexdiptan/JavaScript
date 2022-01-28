@@ -105,7 +105,29 @@
     Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
      */
     const formToCheck = document.querySelector('form');
-    console.log(formToCheck);
+    const formElsToCheck = document.querySelector('form')
+      .querySelectorAll('input, select');
+
+    formToCheck.addEventListener('submit', event => {
+      for (let el of formElsToCheck) {
+        if (el.value === '') {
+          el.classList.add('error');
+          event.preventDefault();
+        }
+      }
+    })
+
+    formToCheck.addEventListener('input', event => {
+      if (event.target.value === '') {
+        console.log(event.target.value);
+        event.target.classList.add('error');
+      }
+      event.target.classList.remove('error');
+
+    });
+
+
+    //console.log(fieldToProcess);
 
 
   </script>
